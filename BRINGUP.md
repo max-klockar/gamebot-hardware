@@ -18,5 +18,6 @@ gamebot --camera picam --projector hdmi
 5. Tune `dwell_ms`, projector keystone/throw for stable CV.
 6. LED ring: soft blue at idle, purple while Stockfish thinks, violent red if SoC ≥ 75°C (`/sys/class/thermal/thermal_zone0/temp`). Demo with `python -m gamebot.bringup --led-demo`.
 7. Fan is passive hardware; keep intake clear. No software control required for Noctua 12V unless you add a PWM controller later.
+8. **Before lending to chess clubs / schools:** follow [SECURITY.md](SECURITY.md) — replace personal GitHub SSH keys with read-only per-repo deploy keys.
 
 Mock development continues with `gamebot --mock` on a laptop until this checklist is done.

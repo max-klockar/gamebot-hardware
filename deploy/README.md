@@ -22,3 +22,7 @@ systemctl list-timers | grep gamebot
 ```
 
 Update script only **ff-only** merges `main`. Develop on the Mac; don’t commit on the Pi.
+
+## Before lending a box out
+
+See [SECURITY.md](../SECURITY.md): switch from a personal GitHub account SSH key to **read-only deploy keys** scoped only to the repos that box needs (`gamebot`, plus any plugins). A full account key on a club machine is a bad idea.
