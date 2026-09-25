@@ -2,9 +2,13 @@
 
 Assumes clones at `~/src/gamebot`, `~/src/gamebot-plugin-chess`, and this repo at `~/src/gamebot-hardware`.
 
+**Preferred (public repos):** HTTPS remotes, **no** GitHub SSH key on the Pi. See [SECURITY.md](../SECURITY.md).
+
 ```bash
 cd ~/src
-git clone git@github.com:max-klockar/gamebot-hardware.git
+git clone https://github.com/max-klockar/gamebot-hardware.git
+# if already cloned via SSH:
+# git -C gamebot-hardware remote set-url origin https://github.com/max-klockar/gamebot-hardware.git
 
 chmod +x ~/src/gamebot-hardware/deploy/gamebot-update.sh
 
@@ -22,7 +26,3 @@ systemctl list-timers | grep gamebot
 ```
 
 Update script only **ff-only** merges `main`. Develop on the Mac; don’t commit on the Pi.
-
-## Before lending a box out
-
-See [SECURITY.md](../SECURITY.md): switch from a personal GitHub account SSH key to **read-only deploy keys** scoped only to the repos that box needs (`gamebot`, plus any plugins). A full account key on a club machine is a bad idea.
