@@ -2,7 +2,7 @@
 
 Target setup:
 
-1. **Repos are public** — Pi pulls over **HTTPS**, no GitHub credentials on the box.
+1. **Source is public** (source-available, noncommercial license) — Pi pulls over **HTTPS**, no GitHub credentials on the box.
 2. **Tailscale ACLs** — you can SSH *to* the Pi; the Pi cannot open connections *to* other tailnet devices.
 3. **Lost/stolen Pi** — disable that node in Tailscale admin; rotate your personal SSH key if it was on the box.
 
