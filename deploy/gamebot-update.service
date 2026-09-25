@@ -1,0 +1,8 @@
+[Unit]
+Description=Pull latest gamebot and restart if needed
+
+[Service]
+Type=oneshot
+User=max
+Group=max
+ExecStart=/home/max/src/gamebot-hardware/deploy/gamebot-update.sh

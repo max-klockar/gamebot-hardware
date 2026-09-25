@@ -1,0 +1,17 @@
+[Unit]
+Description=Gamebot projected tabletop runtime
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=max
+Group=max
+WorkingDirectory=/home/max/src/gamebot
+Environment=PATH=/home/max/src/gamebot/.venv/bin:/usr/local/bin:/usr/bin
+ExecStart=/home/max/src/gamebot/.venv/bin/gamebot --camera mock --projector mock
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
