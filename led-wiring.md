@@ -39,6 +39,7 @@ On the Pi, after `pip install -e ".[pi]"` in the gamebot venv:
 ```bash
 # may need sudo for PWM / DMA on ws281x
 cd ~/src/gamebot && source .venv/bin/activate
+pip install -e ".[pi-led]"   # not full [pi] — that pulls picamera2 / libcap-dev
 sudo .venv/bin/python -m gamebot.bringup --led-demo --loop --led-count 16
 ```
 

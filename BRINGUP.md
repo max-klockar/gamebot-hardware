@@ -9,7 +9,9 @@ When parts arrive:
 ```bash
 cd gamebot
 python -m venv .venv && source .venv/bin/activate
-pip install -e ".[pi,dev]" -e "../chess-plugin"
+pip install -e ".[pi-led,dev]" -e "../chess-plugin"
+# Camera later: sudo apt install libcap-dev && pip install -e ".[pi]"
+# (or apt install python3-picamera2 and use a venv with --system-site-packages)
 # Install Stockfish: sudo apt install stockfish
 gamebot --camera picam --projector hdmi
 ```

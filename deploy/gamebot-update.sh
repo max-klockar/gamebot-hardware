@@ -24,7 +24,9 @@ fi
 echo "updated $old -> $new"
 # shellcheck disable=SC1091
 source "$REPO/.venv/bin/activate"
-pip install -e "${REPO}[pi]" -e "$PLUGIN_REPO" --quiet
+# pi-led always (GPIO / WS2812). Full [pi] needs libcap-dev for python-prctl;
+# install that on the box when bringing up the camera: sudo apt install libcap-dev
+pip install -e "${REPO}[pi-led]" -e "$PLUGIN_REPO" --quiet
 
 if systemctl is-enabled --quiet "$SERVICE" 2>/dev/null; then
   sudo systemctl restart "$SERVICE"
