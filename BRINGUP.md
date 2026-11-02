@@ -3,7 +3,7 @@
 When parts arrive:
 
 1. Flash Raspberry Pi OS 64-bit, enable camera + I2C/SPI as needed.
-2. Connect Picam v3 Wide CSI, projector via HDMI, LED ring via MOSFET on BCM 18 (optional).
+2. Connect Picam v3 Wide CSI, projector via HDMI, LED strip per [led-wiring.md](led-wiring.md) (yellow → pin 12 / BCM 18; fan keeps pins 4 + 6, LED uses pin 2 + another GND).
 3. On the Pi:
 
 ```bash
@@ -15,8 +15,8 @@ gamebot --camera picam --projector hdmi
 ```
 
 4. First boot: run calibration (`c` / Done). Confirm projected grid aligns with board edges.
-5. Tune `dwell_ms`, projector keystone/throw for stable CV.
-6. LED ring: soft blue at idle, purple while Stockfish thinks, violent red if SoC ≥ 75°C (`/sys/class/thermal/thermal_zone0/temp`). Demo with `python -m gamebot.bringup --led-demo`.
+5. Tune `dwell_ms`, projector keystone/throw for stable CV. See [projector-hy300.md](projector-hy300.md) for throw (≥80 cm), fan noise / ambience, and automating the HDMI remote sequence (IR blaster).
+6. LED ring: soft blue at idle, purple while Stockfish thinks, violent red if SoC ≥ 75°C. Headless check (no projector): `sudo .venv/bin/python -m gamebot.bringup --led-demo --loop`. Auto-start of full `gamebot.service` is optional and **not** enabled by default — see [deploy/README.md](deploy/README.md).
 7. Fan is passive hardware; keep intake clear. No software control required for Noctua 12V unless you add a PWM controller later.
 8. **Before lending to chess clubs / schools:** follow [SECURITY.md](SECURITY.md) — replace personal GitHub SSH keys with read-only per-repo deploy keys.
 

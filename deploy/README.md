@@ -21,8 +21,15 @@ sudo systemctl enable --now gamebot-update.timer
 # Optional — start the app service when you want it always running:
 # sudo systemctl enable --now gamebot.service
 
+# Optional — LED-only pulse demo on boot (bring-up; no projector needed):
+# sudo cp ~/src/gamebot-hardware/deploy/gamebot-led-demo.service /etc/systemd/system/
+# sudo systemctl daemon-reload
+# sudo systemctl enable --now gamebot-led-demo.service
+
 systemctl list-timers | grep gamebot
 ~/src/gamebot-hardware/deploy/gamebot-update.sh
 ```
 
 Update script only **ff-only** merges `main`. Develop on the Mac; don’t commit on the Pi.
+
+LED pinout: [led-wiring.md](../led-wiring.md).

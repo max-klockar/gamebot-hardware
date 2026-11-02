@@ -24,7 +24,7 @@ fi
 echo "updated $old -> $new"
 # shellcheck disable=SC1091
 source "$REPO/.venv/bin/activate"
-pip install -e "$REPO" -e "$PLUGIN_REPO" --quiet
+pip install -e "${REPO}[pi]" -e "$PLUGIN_REPO" --quiet
 
 if systemctl is-enabled --quiet "$SERVICE" 2>/dev/null; then
   sudo systemctl restart "$SERVICE"

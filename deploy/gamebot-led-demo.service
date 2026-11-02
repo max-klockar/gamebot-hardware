@@ -1,0 +1,16 @@
+[Unit]
+Description=Gamebot LED strip bring-up demo (blue / purple / red pulse)
+After=multi-user.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/home/max/src/gamebot
+Environment=PATH=/home/max/src/gamebot/.venv/bin:/usr/local/bin:/usr/bin
+# Adjust --led-count to your strip. Runs as root for ws281x DMA/PWM.
+ExecStart=/home/max/src/gamebot/.venv/bin/python -m gamebot.bringup --led-demo --loop --seconds 9 --led-count 16
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
