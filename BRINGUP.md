@@ -1,5 +1,7 @@
 # Hardware bring-up checklist (Pi 4B)
 
+For a full package/apt/venv bake list (future SD image), see [pi-image.md](pi-image.md).
+
 When parts arrive:
 
 1. Flash Raspberry Pi OS 64-bit, enable camera + I2C/SPI as needed.
