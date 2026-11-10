@@ -3,15 +3,18 @@
 When parts arrive:
 
 1. Flash Raspberry Pi OS 64-bit, enable camera + I2C/SPI as needed.
-2. Connect Picam v3 Wide CSI, projector via HDMI, LED strip per [led-wiring.md](led-wiring.md) (yellow → pin 12 / BCM 18; fan keeps pins 4 + 6, LED uses pin 2 + another GND).
+2. Connect Picam v3 Wide CSI, projector via HDMI, LED strip per [led-wiring.md](led-wiring.md) (5V/GND from WAGO, yellow → pin 12 / BCM 18; fan keeps pins 4 + 6).
 3. On the Pi:
 
 ```bash
 cd gamebot
 python -m venv .venv && source .venv/bin/activate
-pip install -e ".[pi-led,dev]" -e "../chess-plugin"
-# Camera later: sudo apt install libcap-dev && pip install -e ".[pi]"
-# (or apt install python3-picamera2 and use a venv with --system-site-packages)
+# Camera: use apt picamera2/libcamera (pip picamera2 alone fails — no libcamera).
+sudo apt install -y python3-picamera2 python3-libcamera
+# Prefer creating the venv with system site packages so imports work:
+#   python3 -m venv --system-site-packages .venv
+pip install -e ".[pi-led,dev]" pygame -e "../chess-plugin"
+# Do NOT pip install picamera2 into the venv if apt already provides it.
 # Install Stockfish: sudo apt install stockfish
 gamebot --camera picam --projector hdmi
 ```
