@@ -104,6 +104,9 @@ python -m gamebot.bringup --camera mock --projector hdmi --seconds 60
 # Projector + real camera
 python -m gamebot.bringup --camera picam --projector hdmi --seconds 60
 
+# Auto colour-corner calibrate + verify (writes ~/cal_verify.jpg)
+python -m gamebot.bringup --camera picam --projector hdmi --calibrate
+
 # Full app
 gamebot --camera picam --projector hdmi
 ```
