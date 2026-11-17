@@ -6,7 +6,8 @@ When parts arrive:
 
 1. Flash Raspberry Pi OS 64-bit, enable camera + I2C/SPI as needed.
 2. Connect Picam v3 Wide CSI, projector via HDMI, LED strip per [led-wiring.md](led-wiring.md) (5V/GND from WAGO, yellow → pin 12 / BCM 18; fan keeps pins 4 + 6).
-3. On the Pi:
+3. Soft power-off: wire front momentary **Power** between pin 5 (BCM 3) and GND; add `dtoverlay=gpio-shutdown,...` per [power-safe.md](power-safe.md). Label C8 rocker **Mains isolator** — button first, rocker second (protects the SD).
+4. On the Pi:
 
 ```bash
 cd gamebot
@@ -21,10 +22,11 @@ pip install -e ".[pi-led,dev]" pygame -e "../chess-plugin"
 gamebot --camera picam --projector hdmi
 ```
 
-4. First boot: run calibration (`c` / Done). Confirm projected grid aligns with board edges.
-5. Tune `dwell_ms`, projector keystone/throw for stable CV. See [projector-hy300.md](projector-hy300.md) for throw (≥80 cm), fan noise / ambience, and automating the HDMI remote sequence (IR blaster).
-6. LED ring: soft blue at idle, purple while Stockfish thinks, violent red if SoC ≥ 75°C. Headless check (no projector): `sudo .venv/bin/python -m gamebot.bringup --led-demo --loop`. Auto-start of full `gamebot.service` is optional and **not** enabled by default — see [deploy/README.md](deploy/README.md).
-7. Fan is passive hardware; keep intake clear. No software control required for Noctua 12V unless you add a PWM controller later.
-8. **Before lending to chess clubs / schools:** follow [SECURITY.md](SECURITY.md) — replace personal GitHub SSH keys with read-only per-repo deploy keys.
+5. First boot: run calibration (`c` / Done). Confirm projected grid aligns with board edges.
+6. Tune `dwell_ms`, projector keystone/throw for stable CV. See [projector-hy300.md](projector-hy300.md) for throw (≥80 cm), fan noise / ambience, and automating the HDMI remote sequence (IR blaster).
+7. LED ring: soft blue at idle, purple while Stockfish thinks, violent red if SoC ≥ 75°C. Headless check (no projector): `sudo .venv/bin/python -m gamebot.bringup --led-demo --loop`. Auto-start of full `gamebot.service` is optional and **not** enabled by default — see [deploy/README.md](deploy/README.md).
+8. Fan is passive hardware; keep intake clear. No software control required for Noctua 12V unless you add a PWM controller later.
+9. Test Power button → clean halt → ACT LED off → then rocker. Never yank rocker while the Pi is up.
+10. **Before lending to chess clubs / schools:** follow [SECURITY.md](SECURITY.md) — replace personal GitHub SSH keys with read-only per-repo deploy keys.
 
 Mock development continues with `gamebot --mock` on a laptop until this checklist is done.

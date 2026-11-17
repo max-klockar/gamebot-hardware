@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gamebot — real wiring</title>
+  <style>
+    :root {
+      --bg: #e8e6e1;
+      --ink: #1a1a1a;
+      --muted: #555;
+      --card: #f7f5f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+      padding: 1.5rem clamp(1rem, 3vw, 2.5rem) 3rem;
+      line-height: 1.4;
+    }
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin: 0 0 0.35rem;
+      letter-spacing: -0.02em;
+    }
+    .lede { color: var(--muted); margin: 0 0 1.25rem; max-width: 38rem; font-size: 1.05rem; }
+    h2 {
+      font-size: 1.2rem;
+      margin: 2rem 0 0.75rem;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.35rem;
+    }
+    .stage {
+      background: var(--card);
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    svg { width: 100%; height: auto; display: block; }
+    .tip {
+      background: #fff8e7;
+      border: 1px solid #e0c97a;
+      border-radius: 4px;
+      padding: 0.75rem 1rem;
+      max-width: 42rem;
+      margin: 1rem 0;
+      font-size: 0.95rem;
+    }
+    .ok {
+      background: #e8f5e9;
+      border: 1px solid #81c784;
+      border-radius: 4px;
+      padding: 0.75rem 1rem;
+      max-width: 42rem;
+      margin: 0 0 1.25rem;
+      font-size: 0.95rem;
+    }
+    .parts { margin: 0 0 1rem; font-size: 1rem; }
+    .parts b { font-weight: 700; }
+  </style>
+</head>
+<body>
+  <h1>How it looks on the bench</h1>
+  <p class="lede">
+    Power enters the box through an <b>IEC C8</b> (figure‑8) inlet — <b>no earth</b>.
+    Only two WAGOs: one for all browns, one for all blues.
+  </p>
+
+  <div class="ok">
+    <b>Parts for mains:</b> C8 inlet → <b>2× WAGO 221-415</b> →
+    (1) cut projector cord, (2) female EU socket for official Pi PSU, (3) Mean Well AC in.<br/>
+    <b>No 221-413 / no yellow-green.</b> C8 has nowhere to bring earth in.
+  </div>
+
+  <div class="tip">
+    EU colours: <b style="color:#8B4513">brown = live</b> ·
+    <b style="color:#1a5fb4">blue = neutral</b>.
+    Strip ~11&nbsp;mm. Power off while splicing. Class II only on this feed (Pi brick, Mean Well, projector).
+  </div>
+
+  <h2>Overview</h2>
+  <div class="stage">
+    <svg viewBox="0 0 900 280" xmlns="http://www.w3.org/2000/svg">
+      <rect x="20" y="90" width="110" height="70" rx="6" fill="#ddd" stroke="#333" stroke-width="2"/>
+      <text x="75" y="120" text-anchor="middle" fill="#111" font-size="14" font-family="Georgia, serif">C8 inlet</text>
+      <text x="75" y="140" text-anchor="middle" fill="#666" font-size="12" font-family="Georgia, serif">figure-8</text>
+      <text x="75" y="156" text-anchor="middle" fill="#666" font-size="11" font-family="Georgia, serif">L + N only</text>
+
+      <path d="M130 115 H190" stroke="#8B4513" stroke-width="5" stroke-linecap="round"/>
+      <path d="M130 140 H190" stroke="#1a5fb4" stroke-width="5" stroke-linecap="round"/>
+
+      <rect x="190" y="40" width="150" height="55" rx="4" fill="#e87722" stroke="#b85c14" stroke-width="2"/>
+      <text x="265" y="65" text-anchor="middle" fill="#fff" font-size="13" font-family="Georgia, serif">WAGO 415</text>
+      <text x="265" y="82" text-anchor="middle" fill="#fff8f0" font-size="11" font-family="Georgia, serif">all BROWN</text>
+
+      <rect x="190" y="155" width="150" height="55" rx="4" fill="#e87722" stroke="#b85c14" stroke-width="2"/>
+      <text x="265" y="180" text-anchor="middle" fill="#fff" font-size="13" font-family="Georgia, serif">WAGO 415</text>
+      <text x="265" y="197" text-anchor="middle" fill="#fff8f0" font-size="11" font-family="Georgia, serif">all BLUE</text>
+
+      <path d="M340 60 H400 V30 H460" stroke="#8B4513" stroke-width="3" fill="none"/>
+      <path d="M340 70 H400 V90 H460" stroke="#8B4513" stroke-width="3" fill="none"/>
+      <path d="M340 80 H400 V150 H460" stroke="#8B4513" stroke-width="3" fill="none"/>
+
+      <path d="M340 175 H400 V170 H460" stroke="#1a5fb4" stroke-width="3" fill="none"/>
+      <path d="M340 185 H400 V210 H460" stroke="#1a5fb4" stroke-width="3" fill="none"/>
+      <path d="M340 195 H400 V250 H460" stroke="#1a5fb4" stroke-width="3" fill="none"/>
+
+      <rect x="460" y="10" width="160" height="40" rx="4" fill="#fff" stroke="#333"/>
+      <text x="540" y="35" text-anchor="middle" fill="#111" font-size="13" font-family="Georgia, serif">Projector (cut cord)</text>
+
+      <rect x="460" y="70" width="160" height="40" rx="4" fill="#fff" stroke="#333"/>
+      <text x="540" y="95" text-anchor="middle" fill="#111" font-size="13" font-family="Georgia, serif">Female EU → Pi PSU</text>
+
+      <rect x="460" y="130" width="160" height="40" rx="4" fill="#fff" stroke="#2e7d32"/>
+      <text x="540" y="155" text-anchor="middle" fill="#111" font-size="13" font-family="Georgia, serif">Mean Well AC in</text>
+
+      <text x="700" y="100" fill="#666" font-size="13" font-family="Georgia, serif">No earth</text>
+      <text x="700" y="118" fill="#666" font-size="13" font-family="Georgia, serif">WAGO / wire</text>
+    </svg>
+  </div>
+
+  <h2>Step 1 — Live (brown): one 221-415</h2>
+  <div class="stage">
+    <svg viewBox="0 0 860 380" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="860" height="380" fill="#f7f5f0"/>
+      <g transform="translate(280,90)">
+        <rect x="0" y="40" width="300" height="70" rx="6" fill="#e87722" stroke="#b85c14" stroke-width="2"/>
+        <rect x="8" y="48" width="284" height="54" rx="3" fill="#f09540"/>
+        <g fill="#2c2c2c">
+          <rect x="18" y="8" width="44" height="36" rx="3"/>
+          <rect x="72" y="8" width="44" height="36" rx="3"/>
+          <rect x="126" y="8" width="44" height="36" rx="3"/>
+          <rect x="180" y="8" width="44" height="36" rx="3"/>
+          <rect x="234" y="8" width="44" height="36" rx="3"/>
+        </g>
+        <text x="150" y="130" text-anchor="middle" fill="#333" font-size="14" font-family="Georgia, serif">WAGO 221-415</text>
+        <text x="150" y="148" text-anchor="middle" fill="#666" font-size="12" font-family="Georgia, serif">ONLY BROWN</text>
+      </g>
+
+      <path d="M80 320 C80 280, 310 280, 310 140" fill="none" stroke="#8B4513" stroke-width="6" stroke-linecap="round"/>
+      <text x="80" y="350" text-anchor="middle" fill="#333" font-size="13" font-family="Georgia, serif">from C8 inlet</text>
+      <text x="80" y="368" text-anchor="middle" fill="#8B4513" font-size="12" font-family="Georgia, serif">brown / L</text>
+
+      <path d="M220 320 C220 260, 365 260, 365 140" fill="none" stroke="#8B4513" stroke-width="6" stroke-linecap="round"/>
+      <text x="220" y="350" text-anchor="middle" fill="#333" font-size="13" font-family="Georgia, serif">to PROJECTOR</text>
+      <text x="220" y="368" text-anchor="middle" fill="#8B4513" font-size="12" font-family="Georgia, serif">cut cord brown</text>
+
+      <path d="M420 320 C420 260, 420 260, 420 140" fill="none" stroke="#8B4513" stroke-width="6" stroke-linecap="round"/>
+      <text x="420" y="350" text-anchor="middle" fill="#333" font-size="13" font-family="Georgia, serif">to FEMALE EU</text>
+      <text x="420" y="368" text-anchor="middle" fill="#8B4513" font-size="12" font-family="Georgia, serif">(Pi PSU plugs in)</text>
+
+      <path d="M580 320 C580 260, 475 260, 475 140" fill="none" stroke="#8B4513" stroke-width="6" stroke-linecap="round"/>
+      <text x="580" y="350" text-anchor="middle" fill="#333" font-size="13" font-family="Georgia, serif">to MEAN WELL</text>
+      <text x="580" y="368" text-anchor="middle" fill="#8B4513" font-size="12" font-family="Georgia, serif">AC L / brown</text>
+
+      <text x="720" y="175" fill="#999" font-size="13" font-family="Georgia, serif">5th hole empty</text>
+    </svg>
+  </div>
+
+  <h2>Step 2 — Neutral (blue): the other 221-415</h2>
+  <div class="stage">
+    <svg viewBox="0 0 860 380" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="860" height="380" fill="#f7f5f0"/>
+      <g transform="translate(280,90)">
+        <rect x="0" y="40" width="300" height="70" rx="6" fill="#e87722" stroke="#b85c14" stroke-width="2"/>
+        <rect x="8" y="48" width="284" height="54" rx="3" fill="#f09540"/>
+        <g fill="#2c2c2c">
+          <rect x="18" y="8" width="44" height="36" rx="3"/>
+          <rect x="72" y="8" width="44" height="36" rx="3"/>
+          <rect x="126" y="8" width="44" height="36" rx="3"/>
+          <rect x="180" y="8" width="44" height="36" rx="3"/>
+          <rect x="234" y="8" width="44" height="36" rx="3"/>
+        </g>
+        <text x="150" y="130" text-anchor="middle" fill="#333" font-size="14" font-family="Georgia, serif">WAGO 221-415</text>
+        <text x="150" y="148" text-anchor="middle" fill="#666" font-size="12" font-family="Georgia, serif">ONLY BLUE</text>
+      </g>
+
+      <path d="M80 320 C80 280, 310 280, 310 140" fill="none" stroke="#1a5fb4" stroke-width="6" stroke-linecap="round"/>
+      <text x="80" y="350" text-anchor="middle" fill="#333" font-size="13" font-family="Georgia, serif">from C8 inlet</text>
+      <text x="80" y="368" text-anchor="middle" fill="#1a5fb4" font-size="12" font-family="Georgia, serif">blue / N</text>
+
+      <path d="M220 320 C220 260, 365 260, 365 140" fill="none" stroke="#1a5fb4" stroke-width="6" stroke-linecap="round"/>
+      <text x="220" y="350" text-anchor="middle" fill="#333" font-size="13" font-family="Georgia, serif">to PROJECTOR</text>
+      <text x="220" y="368" text-anchor="middle" fill="#1a5fb4" font-size="12" font-family="Georgia, serif">cut cord blue</text>
+
+      <path d="M420 320 C420 260, 420 260, 420 140" fill="none" stroke="#1a5fb4" stroke-width="6" stroke-linecap="round"/>
+      <text x="420" y="350" text-anchor="middle" fill="#333" font-size="13" font-family="Georgia, serif">to FEMALE EU</text>
+      <text x="420" y="368" text-anchor="middle" fill="#1a5fb4" font-size="12" font-family="Georgia, serif">(Pi PSU plugs in)</text>
+
+      <path d="M580 320 C580 260, 475 260, 475 140" fill="none" stroke="#1a5fb4" stroke-width="6" stroke-linecap="round"/>
+      <text x="580" y="350" text-anchor="middle" fill="#333" font-size="13" font-family="Georgia, serif">to MEAN WELL</text>
+      <text x="580" y="368" text-anchor="middle" fill="#1a5fb4" font-size="12" font-family="Georgia, serif">AC N / blue</text>
+
+      <text x="720" y="175" fill="#999" font-size="13" font-family="Georgia, serif">5th hole empty</text>
+    </svg>
+  </div>
+
+  <h2>Step 3 — LED 5V (sockerbitar, not WAGO)</h2>
+  <div class="stage">
+    <svg viewBox="0 0 860 400" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="860" height="400" fill="#f7f5f0"/>
+
+      <rect x="40" y="140" width="140" height="100" rx="4" fill="#ddd" stroke="#333" stroke-width="2"/>
+      <text x="110" y="175" text-anchor="middle" fill="#111" font-size="14" font-family="Georgia, serif">Mean Well</text>
+      <text x="110" y="195" text-anchor="middle" fill="#333" font-size="12" font-family="Georgia, serif">APV-35-5</text>
+      <text x="110" y="215" text-anchor="middle" fill="#333" font-size="11" font-family="Georgia, serif">5V out</text>
+
+      <path d="M180 170 H260" stroke="#c62828" stroke-width="6" stroke-linecap="round"/>
+      <path d="M180 210 H260" stroke="#222" stroke-width="6" stroke-linecap="round"/>
+      <text x="210" y="158" fill="#c62828" font-size="12" font-family="Georgia, serif">+</text>
+      <text x="210" y="235" fill="#222" font-size="12" font-family="Georgia, serif">−</text>
+
+      <rect x="260" y="145" width="100" height="50" rx="2" fill="#eee" stroke="#333" stroke-width="2"/>
+      <line x1="275" y1="155" x2="345" y2="155" stroke="#999" stroke-width="2"/>
+      <line x1="275" y1="170" x2="345" y2="170" stroke="#999" stroke-width="2"/>
+      <line x1="275" y1="185" x2="345" y2="185" stroke="#999" stroke-width="2"/>
+      <text x="310" y="215" text-anchor="middle" fill="#333" font-size="12" font-family="Georgia, serif">sockerbit +</text>
+
+      <rect x="260" y="230" width="100" height="50" rx="2" fill="#eee" stroke="#333" stroke-width="2"/>
+      <line x1="275" y1="240" x2="345" y2="240" stroke="#999" stroke-width="2"/>
+      <line x1="275" y1="255" x2="345" y2="255" stroke="#999" stroke-width="2"/>
+      <line x1="275" y1="270" x2="345" y2="270" stroke="#999" stroke-width="2"/>
+      <text x="310" y="300" text-anchor="middle" fill="#333" font-size="12" font-family="Georgia, serif">sockerbit −</text>
+
+      <path d="M360 170 H480" stroke="#c62828" stroke-width="5" stroke-linecap="round"/>
+      <path d="M360 255 H480" stroke="#222" stroke-width="5" stroke-linecap="round"/>
+
+      <rect x="480" y="120" width="220" height="160" rx="6" fill="#1a1a1a" stroke="#333"/>
+      <text x="590" y="150" text-anchor="middle" fill="#eee" font-size="14" font-family="Georgia, serif">LED strip</text>
+      <circle cx="530" cy="200" r="10" fill="#c62828"/>
+      <circle cx="590" cy="200" r="10" fill="#222" stroke="#888"/>
+      <circle cx="650" cy="200" r="10" fill="#f4d03f"/>
+      <text x="530" y="235" text-anchor="middle" fill="#c62828" font-size="12" font-family="Georgia, serif">RED</text>
+      <text x="590" y="235" text-anchor="middle" fill="#ccc" font-size="12" font-family="Georgia, serif">BLACK</text>
+      <text x="650" y="235" text-anchor="middle" fill="#f4d03f" font-size="12" font-family="Georgia, serif">YELLOW</text>
+
+      <path d="M310 280 V340 H200" stroke="#222" stroke-width="4" stroke-linecap="round" stroke-dasharray="8 4"/>
+      <rect x="60" y="320" width="140" height="50" rx="4" fill="#2e7d32" stroke="#1b5e20" stroke-width="2"/>
+      <text x="130" y="342" text-anchor="middle" fill="#fff" font-size="13" font-family="Georgia, serif">Raspberry Pi</text>
+      <text x="130" y="360" text-anchor="middle" fill="#c8e6c9" font-size="11" font-family="Georgia, serif">GND pin 6 or 9</text>
+
+      <path d="M200 345 H400 V280 H650" stroke="#f4d03f" stroke-width="4" stroke-linecap="round" fill="none"/>
+      <text x="400" y="310" fill="#8a6d00" font-size="12" font-family="Georgia, serif">yellow = data from Pi pin 12</text>
+    </svg>
+  </div>
+
+  <h2>Mounting (lid / ceiling)</h2>
+  <div class="tip">
+    <b>Mean Well:</b> screw through its holes.<br/>
+    <b>WAGOs:</b> hot-glue the plastic body to the wood (not the levers); zip-tie cables for strain relief.<br/>
+    <b>Pi PSU:</b> velcro or zip-tie through wood — don’t hang it only on sticky cable clips.<br/>
+    <b>Female EU:</b> fix so plugging the brick in doesn’t yank the WAGO wires.
+  </div>
+
+  <div class="ok">
+    <b>Done when:</b> C8 → 2 orange 415s (brown bundle + blue bundle) → projector / female‑EU / Mean Well;
+    Mean Well 5V → sockerbitar → LED red+black; Pi GND bonded; LED yellow → pin 12;
+    official Pi PSU plugged into the female. <b>No earth WAGO.</b>
+  </div>
+</body>
+</html>

@@ -11,6 +11,7 @@ Everything to put on a golden SD / custom Imager image so the next box doesn’t
 | User | `max` |
 | Locale / Wi‑Fi country | SE (or deploy locale) |
 | Camera | `camera_auto_detect=1` in `/boot/firmware/config.txt` |
+| Soft Power button | `dtoverlay=gpio-shutdown,gpio_pin=3,active_low=1,gpio_pull=up` — see [power-safe.md](power-safe.md) |
 | Auto-login desktop | Recommended so HDMI projector has a session without a keyboard |
 
 ## apt packages
