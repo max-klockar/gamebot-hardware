@@ -18,7 +18,8 @@ sudo cp ~/src/gamebot-hardware/deploy/gamebot-update.timer /etc/systemd/system/
 
 sudo systemctl daemon-reload
 sudo systemctl enable --now gamebot-update.timer
-# Optional — start the app service when you want it always running:
+# Operator page on boot (http://<pi>:8080). Needs the desktop session for the projector.
+# Recopy the unit first — it runs the real camera, as root, and waits for the page.
 # sudo systemctl enable --now gamebot.service
 
 # Optional — LED-only pulse demo on boot (bring-up; no projector needed):

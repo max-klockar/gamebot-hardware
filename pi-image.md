@@ -83,7 +83,7 @@ sudo systemctl enable --now gamebot-update.timer
 | Unit | Default on image? | Role |
 |------|-------------------|------|
 | `gamebot-update.timer` | **Yes** | ff-only pull `gamebot` every ~2 min; installs `[pi-led]` |
-| `gamebot.service` | Optional | Runs app (today still mock flags in unit — update before enabling) |
+| `gamebot.service` | Optional | Boots into the operator page (`--portal`, real camera, root for LEDs). Enable when the desktop session is up. |
 | `gamebot-led-demo.service` | Optional bring-up | LED pulse; run as root for ws281x |
 
 Update script path assumptions: `~/src/gamebot`, `~/src/gamebot-plugin-chess`, user `max`. See [deploy/README.md](deploy/README.md).

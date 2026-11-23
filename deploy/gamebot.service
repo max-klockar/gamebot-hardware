@@ -1,17 +1,21 @@
 [Unit]
-Description=Gamebot projected tabletop runtime
-After=network-online.target
+Description=Gamebot operator portal and table runtime
+After=network-online.target graphical.target
 Wants=network-online.target
 
 [Service]
 Type=simple
-User=max
-Group=max
+User=root
+Group=root
 WorkingDirectory=/home/max/src/gamebot
+Environment=SUDO_USER=max
+Environment=DISPLAY=:0
+Environment=SDL_VIDEODRIVER=x11
 Environment=PATH=/home/max/src/gamebot/.venv/bin:/usr/local/bin:/usr/bin
-ExecStart=/home/max/src/gamebot/.venv/bin/gamebot --camera mock --projector mock
+# Root for the LED ring. SUDO_USER keeps captures and calibration in /home/max/.gamebot.
+ExecStart=/home/max/src/gamebot/scripts/run-pi.sh --portal --camera picam --projector hdmi
 Restart=on-failure
 RestartSec=5
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=graphical.target
